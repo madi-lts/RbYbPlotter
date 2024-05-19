@@ -218,3 +218,12 @@ if __name__ == "__main__":
     window = MyWindow()
     window.show()
     sys.exit(app.exec())
+
+"""
+x = 'manual_scan'
+y = 'Rb_MOT_time'
+scans = [31,32,33,34,35,36,37,38,39]
+plot_var_list = ['Andor_image_SHOT_LYSE__ODT_amp_fit']
+metadata_var_list = ['Rb_MOT_current_zgrad']
+metadata, fig = self.ryj.plot(scans, [x,y], plot_var_list, metadata_var_list, figsize=(6,4))
+"""
