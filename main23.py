@@ -29,18 +29,22 @@ class ClickableGraphicsView(QGraphicsView):
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
-            self.on_click()
+            self.on_click(flag='left')
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.on_click(flag='right')
         super().mousePressEvent(event)
 
-    def on_click(self):
+    def on_click(self,flag='left'):
         clipboard = QApplication.clipboard()
-        buffer = io.BytesIO()
-        self.fig.savefig(buffer)
-
-        data_to_clipboard = QMimeData()
-        data_to_clipboard.setText(self.metadata_str)
-        data_to_clipboard.setImageData(QtGui.QImage.fromData(buffer.getvalue()))
-        clipboard.setMimeData(data_to_clipboard)
+        if flag=='left':
+            buffer = io.BytesIO()
+            self.fig.savefig(buffer)
+            data_to_clipboard = QMimeData()
+            data_to_clipboard.setText(self.metadata_str)
+            data_to_clipboard.setImageData(QtGui.QImage.fromData(buffer.getvalue()))
+            clipboard.setMimeData(data_to_clipboard)
+        elif flag=='right':
+            clipboard.setText(self.metadata_str)
 
         QMessageBox.information(self, "Clipboard", "Text copied to clipboard!")
 
@@ -94,7 +98,7 @@ class MyWindow(QMainWindow):
         # Create the layout for row, col, colspan, and rowspan QLineEdit objects
         if tab == self.tab1: 
             base_path_edit = QLineEdit()
-            base_path_edit.setText(r'D:\RbYb Tweezers\Data\2024\05\01')
+            base_path_edit.setText(r'/home/madi/RbYbTweezers/Data/2024/05/2024-05-15-Rb_slow_MOT_ramp')
             tab_layout.addWidget(QLabel('Base path:'))
             tab_layout.addWidget(base_path_edit)
 
